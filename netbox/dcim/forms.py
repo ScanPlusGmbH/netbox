@@ -2033,8 +2033,8 @@ class DeviceBulkEditForm(BootstrapMixin, AddRemoveTagsForm, CustomFieldBulkEditF
 class DeviceFilterForm(BootstrapMixin, LocalConfigContextFilterForm, TenancyFilterForm, CustomFieldFilterForm):
     model = Device
     field_order = [
-        'q', 'region', 'site', 'rack_group_id', 'rack_id', 'status', 'role', 'tenant_group', 'tenant',
-        'manufacturer_id', 'device_type_id', 'mac_address', 'has_primary_ip',
+        'q', 'region', 'site', 'rack_group_id', 'rack_role', 'rack_id', 'status', 'role', 'tenant_group',
+        'tenant', 'manufacturer_id', 'device_type_id', 'mac_address', 'has_primary_ip',
     ]
     q = forms.CharField(
         required=False,
@@ -2077,6 +2077,14 @@ class DeviceFilterForm(BootstrapMixin, LocalConfigContextFilterForm, TenancyFilt
         queryset=Rack.objects.all(),
         required=False,
         label='Rack',
+        widget=APISelectMultiple(
+            null_option=True,
+        )
+    )
+    rack_role = DynamicModelMultipleChoiceField(
+        queryset=RackRole.objects.all(),
+        required=False,
+        label='Rack role',
         widget=APISelectMultiple(
             null_option=True,
         )

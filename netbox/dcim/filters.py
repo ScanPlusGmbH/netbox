@@ -572,6 +572,11 @@ class DeviceFilterSet(
         lookup_expr='in',
         label='Rack group (ID)',
     )
+    rack_role = django_filters.ModelMultipleChoiceFilter(
+        queryset=RackRole.objects.all(),
+        field_name='rack__role',
+        label='Rack role (ID)',
+    )
     rack_id = django_filters.ModelMultipleChoiceFilter(
         field_name='rack',
         queryset=Rack.objects.all(),
